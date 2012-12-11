@@ -23,8 +23,24 @@ setup(name='xtree',
       author = 'Luca Falavigna',
       author_email = 'dktrkranz@debian.org',
       description = 'Gather files scattered across several subdirectories',
+      long_description = '''\
+xtree can easily convert an archive or a directory populated by a lot of
+nested subdirectories into a flat tree structure, or the other way round.
+
+This is particularly useful to move files scattered across a lot of
+subdirectories into a single directory, or to move files grouped by a
+common pattern into corresponding subdirectories.''',
       url = 'https://github.com/dktrkranz/xtree',
       license = 'GNU GPL',
+      platforms = 'OS Independent',
+      classifiers = ['Development Status :: 4 - Beta',
+                     'Intended Audience :: Developers',
+                     'License :: OSI Approved :: '
+                        'GNU General Public License v3 or later (GPLv3+)',
+                     'Operating System :: OS Independent',
+                     'Programming Language :: Python',
+                     'Programming Language :: Python :: 2',
+                     'Topic :: Utilities'],
       packages = ['XTree'],
       scripts = ['xtree'],
       data_files = [('share/man/man1', ['xtree.1'])])
