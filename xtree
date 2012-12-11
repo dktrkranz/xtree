@@ -31,20 +31,20 @@ mimetypes = {'inode/directory': 'dir',
 
 parser = argparse.ArgumentParser(description='Flatten directory contents')
 parser.add_argument('archive', type=str, nargs=1,
-                    help='Name of the archive or directory')
+                    help='name of the archive or directory')
 parser.add_argument('--separator', metavar='[|]', type=str, nargs=1,
-                    help='Specify which directory separator to use')
+                    help='specify which separator to use')
 parser.add_argument('--no-separator', action='store_true',
-                    help='Do not use directory separators')
+                    help='do not use any separator')
 parser.add_argument('--purge', action='store_true',
-                    help='Purge created elements on exit')
+                    help='delete newly created elements on exit')
 group = parser.add_mutually_exclusive_group()
 group.add_argument('--directory', action='store_true',
-                    help='Selected archive is a directory')
+                    help='selected archive is a directory')
 group.add_argument('--tarball', action='store_true',
-                    help='Selected archive is a tarball')
+                    help='selected archive is a tarball')
 group.add_argument('--zipfile', action='store_true',
-                    help='Selected archive is a zipfile')
+                    help='selected archive is a zipfile')
 args = parser.parse_args()
 
 if args.no_separator:
