@@ -26,4 +26,5 @@ setup(name='xtree',
       url = 'https://github.com/dktrkranz/xtree',
       license = 'GNU GPL',
       packages = ['XTree'],
-      scripts = ['xtree'])
+      scripts = ['xtree'],
+      data_files = [('share/man/man1', ['xtree.1'])])
