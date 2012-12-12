@@ -49,6 +49,8 @@ class FileSystem():
                 dst = self.separator.join(src.split('/')[1:])
             else:
                 dst = os.path.basename(src)
+            if not self.nopath:
+                src = os.path.join(self.base_dir, src)
             os.link(src, os.path.join(self.flat_dir, dst))
 
     def directory_names(self):
@@ -61,7 +63,7 @@ class FileSystem():
                 self.base_count += 1
                 if elem not in self.files:
                     self.base_dir = elem
-            if self.base_count > 1:
+            if self.base_count != 1:
                 self.base_dir = os.path.splitext(self.archive)[0]
                 self.nopath = False
             self.flat_dir = self.base_dir + '.flat'
