@@ -3,6 +3,7 @@
 * Fix exception if multiple directories are present in archive root
 * Correctly handle separator option
 * Fix generation of flat tree archives generated from directories
+* Add unit tests
 
 0.1 (2012-10-01)
 * First stable release
