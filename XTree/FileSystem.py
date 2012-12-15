@@ -46,7 +46,10 @@ class FileSystem():
     def create_links(self):
         for src in self.files:
             if self.separator:
-                dst = self.separator.join(src.split('/')[1:])
+                if self.nopath:
+                    dst = self.separator.join(src.split('/')[1:])
+                else:
+                    dst = self.separator.join(src.split('/'))
             else:
                 dst = os.path.basename(src)
             if not self.nopath:
