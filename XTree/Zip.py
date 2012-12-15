@@ -46,8 +46,8 @@ class Zip(FileSystem):
             self.elements.append(name.strip('/'))
         self.zipfile.extractall(tmpdir)
         for elem in self.elements:
-             if isfile(join(tmpdir, elem)):
-                 self.files.append(elem)
+            if isfile(join(tmpdir, elem)):
+                self.files.append(elem)
         rmtree(tmpdir)
 
     def unpack(self):
@@ -55,4 +55,4 @@ class Zip(FileSystem):
             path = '.'
         else:
             path = self.base_dir
-        self.zipfile.extractall(path = path)
+        self.zipfile.extractall(path=path)

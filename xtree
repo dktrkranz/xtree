@@ -79,4 +79,3 @@ if exists(args.archive[0]):
             print 'Unsupported file type'
 else:
     print '%s does not exist' % args.archive[0]
-

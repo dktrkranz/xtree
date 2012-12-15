@@ -48,4 +48,4 @@ class Tar(FileSystem):
             path = '.'
         else:
             path = self.base_dir
-        self.tarball.extractall(path = path)
+        self.tarball.extractall(path=path)
