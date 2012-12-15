@@ -27,6 +27,7 @@ class Dir(FileSystem):
         self.base_dir = None
         self.flat_dir = None
         self.files = []
+        self.nopath = True
         if not os.path.isdir(self.archive):
             print '%s is not a directory.' % self.archive
             exit()

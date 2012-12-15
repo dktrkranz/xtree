@@ -37,7 +37,8 @@ class FileSystem():
 
     def cleanup(self):
         if self.base_dir:
-            rmtree(self.base_dir)
+            if self.base_dir != self.archive:
+                rmtree(self.base_dir)
         if self.purge:
             print 'Press any key to delete %s' % self.flat_dir
             raw_input()
@@ -47,7 +48,8 @@ class FileSystem():
         for src in self.files:
             if self.separator:
                 if self.nopath:
-                    dst = self.separator.join(src.split('/')[1:])
+                    dst = src.split(self.base_dir)[1].split('/')[1:]
+                    dst = self.separator.join(dst)
                 else:
                     dst = self.separator.join(src.split('/'))
             else:
@@ -58,6 +60,7 @@ class FileSystem():
 
     def directory_names(self):
         if os.path.isdir(self.archive):
+            self.base_dir = self.archive
             self.flat_dir = self.archive + '.flat'
         else:
             for elem in self.elements:
