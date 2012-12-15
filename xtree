@@ -50,7 +50,10 @@ args = parser.parse_args()
 if args.no_separator:
     separator = None
 elif args.separator:
-    separator = args.separator
+    try:
+        separator = args.separator[0][0]
+    except IndexError:
+        separator = None
 else:
     separator = '|'
 
