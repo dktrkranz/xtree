@@ -19,7 +19,7 @@ from distutils.core import setup
 
 
 setup(name='xtree',
-      version='0.1',
+      version='0.2',
       author='Luca Falavigna',
       author_email='dktrkranz@debian.org',
       description='Gather files scattered across several subdirectories',
