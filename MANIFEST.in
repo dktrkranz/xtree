@@ -1,1 +1,4 @@
+include AUTHORS
+include ChangeLog
+include COPYING
 recursive-include tests *
