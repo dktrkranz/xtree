@@ -35,7 +35,7 @@ class Zip(FileSystem):
         self.nopath = True
         try:
             self.zipfile = zipfile.ZipFile(self.archive)
-        except (IOError, RuntimeError):
+        except (IOError, zipfile.BadZipfile):
             print '%s is not a zipfile.' % self.archive
             exit()
         self.xtreeify()
