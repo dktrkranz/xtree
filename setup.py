@@ -43,4 +43,4 @@ common pattern into corresponding subdirectories.''',
                    'Topic :: Utilities'],
       packages=['XTree'],
       scripts=['xtree'],
-      data_files=[('share/man/man1', ['xtree.1'])])
+      data_files=[('share/man/man1', ['doc/xtree.1'])])
