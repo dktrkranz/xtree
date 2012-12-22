@@ -48,10 +48,10 @@ class FileSystem():
         for src in self.files:
             if self.separator:
                 if self.nopath:
-                    dst = src.split(self.base_dir)[1].split('/')[1:]
+                    dst = src.split(self.base_dir)[1].split(os.sep)[1:]
                     dst = self.separator.join(dst)
                 else:
-                    dst = self.separator.join(src.split('/'))
+                    dst = self.separator.join(src.split(os.sep))
             else:
                 dst = os.path.basename(src)
             if not self.nopath:
@@ -67,7 +67,7 @@ class FileSystem():
             self.flat_dir = self.archive + '.flat'
         else:
             for elem in self.elements:
-                if '/' in elem:
+                if os.sep in elem:
                     continue
                 self.base_count += 1
                 if elem not in self.files:
@@ -82,8 +82,8 @@ class FileSystem():
         if not os.path.isabs(path):
             path = os.path.abspath(os.path.join(os.path.dirname(src),
                                    os.readlink(src)))\
-                   .replace(os.path.abspath(self.base_dir), '').strip('/')\
-                   .replace('/', self.separator)
+                   .replace(os.path.abspath(self.base_dir), '').strip(os.sep)\
+                   .replace(os.sep, self.separator)
         os.symlink(path, dst)
 
     def xtreeify(self):

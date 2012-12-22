@@ -28,7 +28,7 @@ class Common:
 
         def __enter__(self):
             self._stdout = sys.stdout
-            self.null = open('/dev/null', 'wb')
+            self.null = open(os.devnull, 'wb')
             sys.stdout = self.null
 
         def __exit__(self, *ignored):
