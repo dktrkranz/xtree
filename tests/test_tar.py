@@ -16,6 +16,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 
 import unittest
+from os import readlink
 
 from common import Common
 from XTree import Tar
@@ -92,6 +93,28 @@ class GzipFile(unittest.TestCase, Common):
             pass
         else:
             self.fail('SystemExit exception expected')
+
+    def test_tar_symlinks(self):
+        files = ('gzip5.flat/bar1',
+                 'gzip5.flat/bar|bar1',
+                 'gzip5.flat/bar|foo1',
+                 'gzip5.flat/bars',
+                 'gzip5.flat/foo1',
+                 'gzip5.flat/foo|bar1',
+                 'gzip5.flat/foo|foo1',
+                 'gzip5.flat/foos')
+        links = (('gzip5.flat/bar1', 'bar|bar1'),
+                 ('gzip5.flat/bar|foo1', 'foo|foo1'),
+                 ('gzip5.flat/bars', '/bar/bars'),
+                 ('gzip5.flat/foo1', 'foo|foo1'),
+                 ('gzip5.flat/foo|bar1', 'bar|bar1'),
+                 ('gzip5.flat/foos', '/foo/foos'))
+        with self.Silence():
+            g = Tar.Tar('tests/tar/gzip5.tar.gz')
+            for (file, target) in links:
+                self.assertEqual(readlink(file), target)
+        processed = self.list_files(g.flat_dir)
+        self.assertEqual(set(files), processed)
 
     def test_tar_is_gzip(self):
         try:
@@ -175,6 +198,28 @@ class Bzip2File(unittest.TestCase, Common):
             pass
         else:
             self.fail('SystemExit exception expected')
+
+    def test_tar_symlinks(self):
+        files = ('bzip5.flat/bar1',
+                 'bzip5.flat/bar|bar1',
+                 'bzip5.flat/bar|foo1',
+                 'bzip5.flat/bars',
+                 'bzip5.flat/foo1',
+                 'bzip5.flat/foo|bar1',
+                 'bzip5.flat/foo|foo1',
+                 'bzip5.flat/foos')
+        links = (('bzip5.flat/bar1', 'bar|bar1'),
+                 ('bzip5.flat/bar|foo1', 'foo|foo1'),
+                 ('bzip5.flat/bars', '/bar/bars'),
+                 ('bzip5.flat/foo1', 'foo|foo1'),
+                 ('bzip5.flat/foo|bar1', 'bar|bar1'),
+                 ('bzip5.flat/foos', '/foo/foos'))
+        with self.Silence():
+            b = Tar.Tar('tests/tar/bzip5.tar.bz2')
+            for (file, target) in links:
+                self.assertEqual(readlink(file), target)
+        processed = self.list_files(b.flat_dir)
+        self.assertEqual(set(files), processed)
 
     def test_tar_is_bzip2(self):
         try:

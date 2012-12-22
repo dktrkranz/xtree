@@ -16,6 +16,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 
 import unittest
+from os import readlink
 
 from common import Common
 from XTree import Dir
@@ -81,6 +82,28 @@ class ZipFile(unittest.TestCase, Common):
             pass
         else:
             self.fail('SystemExit exception expected')
+
+    def test_dir_symlinks(self):
+        files = ('tests/dir/dir4.flat/bar1',
+                 'tests/dir/dir4.flat/bar|bar1',
+                 'tests/dir/dir4.flat/bar|foo1',
+                 'tests/dir/dir4.flat/bars',
+                 'tests/dir/dir4.flat/foo1',
+                 'tests/dir/dir4.flat/foo|bar1',
+                 'tests/dir/dir4.flat/foo|foo1',
+                 'tests/dir/dir4.flat/foos')
+        links = (('tests/dir/dir4.flat/bar1', 'bar|bar1'),
+                 ('tests/dir/dir4.flat/bar|foo1', 'foo|foo1'),
+                 ('tests/dir/dir4.flat/bars', '/bar/bars'),
+                 ('tests/dir/dir4.flat/foo1', 'foo|foo1'),
+                 ('tests/dir/dir4.flat/foo|bar1', 'bar|bar1'),
+                 ('tests/dir/dir4.flat/foos', '/foo/foos'))
+        with self.Silence():
+            d = Dir.Dir('tests/dir/dir4')
+            for (file, target) in links:
+                self.assertEqual(readlink(file), target)
+            processed = self.list_files(d.flat_dir)
+        self.assertEqual(set(files), processed)
 
     def test_dir_is_dir(self):
         try:

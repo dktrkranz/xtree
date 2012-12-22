@@ -1,3 +1,6 @@
+0.3 (development)
+* Handle symlinks correctly
+
 0.2 (2012-12-15)
 * Add manpage
 * Fix exception if multiple directories are present in archive root

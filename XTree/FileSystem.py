@@ -56,7 +56,10 @@ class FileSystem():
                 dst = os.path.basename(src)
             if not self.nopath:
                 src = os.path.join(self.base_dir, src)
-            os.link(src, os.path.join(self.flat_dir, dst))
+            if os.path.islink(src):
+                self.symlinks(src, os.path.join(self.flat_dir, dst))
+            else:
+                os.link(src, os.path.join(self.flat_dir, dst))
 
     def directory_names(self):
         if os.path.isdir(self.archive):
@@ -73,6 +76,15 @@ class FileSystem():
                 self.base_dir = os.path.splitext(self.archive)[0]
                 self.nopath = False
             self.flat_dir = self.base_dir + '.flat'
+
+    def symlinks(self, src, dst):
+        path = os.readlink(src)
+        if not os.path.isabs(path):
+            path = os.path.abspath(os.path.join(os.path.dirname(src),
+                                   os.readlink(src)))\
+                   .replace(os.path.abspath(self.base_dir), '').strip('/')\
+                   .replace('/', self.separator)
+        os.symlink(path, dst)
 
     def xtreeify(self):
         self.checks()

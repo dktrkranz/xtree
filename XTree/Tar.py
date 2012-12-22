@@ -40,7 +40,7 @@ class Tar(FileSystem):
     def list_files(self):
         self.elements = self.tarball.getnames()
         for member in self.tarball.getmembers():
-            if member.isfile():
+            if not member.isdir():
                 self.files.append(member.name)
 
     def unpack(self):
