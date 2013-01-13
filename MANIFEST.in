@@ -2,3 +2,4 @@ include AUTHORS
 include ChangeLog
 include COPYING
 recursive-include tests *
+recursive-exclude tests *.pyc
